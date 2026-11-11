@@ -522,7 +522,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <button type="button" id="btn-choice-save" onclick="selectSurplusAction('save')" class="p-3 rounded-xl border-2 border-slate-300 bg-white hover:bg-blue-50 text-left transition flex items-start gap-3 shadow-xs group">
                 <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center text-lg flex-shrink-0 shadow group-hover:scale-110 transition">
-                  <i class="fa-solid fa-Vault"></i>
+                  <i class="fa-solid fa-vault"></i>
                 </div>
                 <div class="flex-1">
                   <div class="flex items-center justify-between">
@@ -547,12 +547,16 @@
               </button>
             </div>
 
+            <!-- 尚未決定時的引導提示 -->
+            <div id="chance-undecided-hint" class="p-2.5 rounded-xl border border-dashed border-amber-500 bg-amber-50/70 text-center text-xs font-bold text-amber-900">
+              👆 請點擊上方【🏦 選擇「存款」】或【💝 選擇「捐贈」】做出決定，即可翻開你的專屬【🎲 機會】正向回饋鼓勵卡！
+            </div>
             <!-- 決定後翻開的【機會】正向回饋鼓勵卡 -->
             <div id="chance-feedback-card" class="hidden mt-2 p-3.5 rounded-xl border-2 border-amber-400 bg-gradient-to-r from-amber-100/90 via-yellow-50 to-amber-100/90 shadow-md relative overflow-hidden">
               <div class="flex flex-wrap items-center justify-between gap-2 border-b border-amber-300/80 pb-2 mb-2">
                 <div class="flex items-center gap-2">
                   <span class="bg-amber-500 text-white font-black text-xs px-2.5 py-0.5 rounded-lg shadow-xs flex items-center gap-1">
-                    <i class="fa-solid fa-Clover"></i> 機會 CHANCE
+                    <i class="fa-solid fa-clover"></i> 機會 CHANCE
                   </span>
                   <span id="chance-card-title" class="font-black text-sm text-amber-950">【機會卡：正向回饋鼓勵】</span>
                 </div>
@@ -983,7 +987,7 @@
     let currentInspectId = null;
     let inspectSelectedTags = [];
     let soundEnabled = true;
-    let surplusAction = 'save'; // 'save' (存款) 或 'donate' (捐贈)
+    let surplusAction = ''; // '' (尚未決定), 'save' (存款) 或 'donate' (捐贈)
     let currentChanceIdx = 0;
 
     // 結餘金決定後觸發的【機會 CHANCE】正向回饋鼓勵卡題庫
@@ -1077,30 +1081,46 @@
         const badgeSave = document.getElementById('badge-choice-save');
         const badgeDonate = document.getElementById('badge-choice-donate');
 
-        if (surplusAction === 'save') {
-          btnSave.className = 'p-3 rounded-xl border-2 border-blue-600 bg-blue-50/90 text-left transition flex items-start gap-3 shadow-md ring-2 ring-blue-300';
-          badgeSave.className = 'text-[10px] font-black px-2 py-0.5 rounded-full bg-blue-600 text-white';
-          badgeSave.innerText = '✓ 已選擇存款';
-
-          btnDonate.className = 'p-3 rounded-xl border-2 border-slate-300 bg-white hover:bg-rose-50 text-left transition flex items-start gap-3 shadow-xs opacity-80 hover:opacity-100';
-          badgeDonate.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-500';
-          badgeDonate.innerText = '點擊切換';
-        } else {
-          btnDonate.className = 'p-3 rounded-xl border-2 border-rose-500 bg-rose-50/90 text-left transition flex items-start gap-3 shadow-md ring-2 ring-rose-300';
-          badgeDonate.className = 'text-[10px] font-black px-2 py-0.5 rounded-full bg-rose-600 text-white';
-          badgeDonate.innerText = '✓ 已選擇捐贈';
-
-          btnSave.className = 'p-3 rounded-xl border-2 border-slate-300 bg-white hover:bg-blue-50 text-left transition flex items-start gap-3 shadow-xs opacity-80 hover:opacity-100';
-          badgeSave.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-500';
-          badgeSave.innerText = '點擊切換';
-        }
-
-        const pool = chanceCardsPool[surplusAction] || chanceCardsPool.save;
-        const card = pool[currentChanceIdx % pool.length];
+        const hintBox = document.getElementById('chance-undecided-hint');
         const cardBox = document.getElementById('chance-feedback-card');
-        cardBox.classList.remove('hidden');
-        document.getElementById('chance-card-title').innerText = card.title;
-        document.getElementById('chance-card-message').innerText = card.msg.replace('${amount}', `$${remaining}`);
+
+        if (!surplusAction) {
+          btnSave.className = 'p-3 rounded-xl border-2 border-blue-400 bg-white hover:bg-blue-50 text-left transition flex items-start gap-3 shadow-sm';
+          badgeSave.className = 'text-[10px] font-black px-2 py-0.5 rounded-full bg-blue-100 text-blue-800';
+          badgeSave.innerText = '點擊決定';
+
+          btnDonate.className = 'p-3 rounded-xl border-2 border-rose-400 bg-white hover:bg-rose-50 text-left transition flex items-start gap-3 shadow-sm';
+          badgeDonate.className = 'text-[10px] font-black px-2 py-0.5 rounded-full bg-rose-100 text-rose-800';
+          badgeDonate.innerText = '點擊決定';
+
+          if (hintBox) hintBox.classList.remove('hidden');
+          cardBox.classList.add('hidden');
+        } else {
+          if (hintBox) hintBox.classList.add('hidden');
+          if (surplusAction === 'save') {
+            btnSave.className = 'p-3 rounded-xl border-2 border-blue-600 bg-blue-50/90 text-left transition flex items-start gap-3 shadow-md ring-2 ring-blue-300';
+            badgeSave.className = 'text-[10px] font-black px-2 py-0.5 rounded-full bg-blue-600 text-white';
+            badgeSave.innerText = '✓ 已決定：存款';
+
+            btnDonate.className = 'p-3 rounded-xl border-2 border-slate-300 bg-white hover:bg-rose-50 text-left transition flex items-start gap-3 shadow-xs opacity-80 hover:opacity-100';
+            badgeDonate.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-500';
+            badgeDonate.innerText = '點擊改為捐贈';
+          } else {
+            btnDonate.className = 'p-3 rounded-xl border-2 border-rose-500 bg-rose-50/90 text-left transition flex items-start gap-3 shadow-md ring-2 ring-rose-300';
+            badgeDonate.className = 'text-[10px] font-black px-2 py-0.5 rounded-full bg-rose-600 text-white';
+            badgeDonate.innerText = '✓ 已決定：捐贈';
+
+            btnSave.className = 'p-3 rounded-xl border-2 border-slate-300 bg-white hover:bg-blue-50 text-left transition flex items-start gap-3 shadow-xs opacity-80 hover:opacity-100';
+            badgeSave.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-500';
+            badgeSave.innerText = '點擊改為存款';
+          }
+
+          const pool = chanceCardsPool[surplusAction] || chanceCardsPool.save;
+          const card = pool[currentChanceIdx % pool.length];
+          cardBox.classList.remove('hidden');
+          document.getElementById('chance-card-title').innerText = card.title;
+          document.getElementById('chance-card-message').innerText = card.msg.replace('${amount}', `$${remaining}`);
+        }
       } else {
         hasMoneyBox.classList.add('hidden');
         zeroMoneyBox.classList.remove('hidden');
@@ -1633,7 +1653,7 @@
       const lblRemMode = document.getElementById('label-remaining-mode');
       if (lblRemMode) {
         if (remaining > 0) {
-          lblRemMode.innerText = surplusAction === 'donate' ? '💝 結餘決定：公益捐贈' : '🏦 結餘決定：存入存款';
+          lblRemMode.innerText = !surplusAction ? '🏦 結餘（可存款/捐贈）' : (surplusAction === 'donate' ? '💝 結餘決定：公益捐贈' : '🏦 結餘決定：存入存款');
         } else {
           lblRemMode.innerText = '🏦 結餘金額 ($0)';
         }
@@ -1815,6 +1835,11 @@ function appendReflection(fieldId, text) {
       const totalSpent = cart.reduce((sum, item) => sum + item.product.price, 0);
       if (totalSpent > 600) {
         alert('⚠️ 您的採購總金額超過 600 元上限，無法結帳！請先返回提籃將部分「想要」商品放回貨架。');
+        return;
+      }
+      if (600 - totalSpent > 0 && !surplusAction) {
+        alert(`💡 您還有結餘 $${600 - totalSpent} 元喔！請先在上方「小資結餘規劃局」點選【🏦 選擇「存款」】或【💝 選擇「捐贈」】，翻開您的專屬【機會】正向回饋鼓勵卡後再下載 PDF！`);
+        document.getElementById('surplus-decision-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
 
