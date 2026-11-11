@@ -505,83 +505,6 @@
           </div>
         </div>
 
-        <!-- 結餘金運用選擇（「存款」或「捐贈」）與【機會】正向回饋鼓勵機制 -->
-        <div id="surplus-decision-box" class="p-4 rounded-2xl border-2 border-emerald-400 bg-gradient-to-br from-emerald-50 via-teal-50 to-amber-50 space-y-3 shadow-sm">
-          <!-- 有結餘時顯示的選擇介面 -->
-          <div id="surplus-has-money" class="space-y-3">
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <h4 class="font-black text-sm text-emerald-950 flex items-center gap-1.5">
-                <i class="fa-solid fa-piggy-bank text-emerald-600 text-base"></i>
-                🌟 小資結餘規劃局：你精打細算省下了 <span id="surplus-modal-amount" class="text-base text-rose-600 font-black underline px-1">$0 元</span>！你想如何運用？
-              </h4>
-              <span class="text-[11px] bg-amber-300 text-slate-900 font-black px-2.5 py-0.5 rounded-full shadow-xs animate-pulse">
-                🎲 點擊選擇立即翻開【機會】正向回饋卡！
-              </span>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <button type="button" id="btn-choice-save" onclick="selectSurplusAction('save')" class="p-3 rounded-xl border-2 border-slate-300 bg-white hover:bg-blue-50 text-left transition flex items-start gap-3 shadow-xs group">
-                <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center text-lg flex-shrink-0 shadow group-hover:scale-110 transition">
-                  <i class="fa-solid fa-vault"></i>
-                </div>
-                <div class="flex-1">
-                  <div class="flex items-center justify-between">
-                    <span class="font-black text-sm text-slate-800">🏦 選擇「存款」</span>
-                    <span id="badge-choice-save" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-500">點擊決定</span>
-                  </div>
-                  <p class="text-[11px] text-slate-600 mt-0.5 leading-snug">將省下的結餘存入個人儲蓄帳戶，實踐延遲享樂、累積未來夢想基金！</p>
-                </div>
-              </button>
-
-              <button type="button" id="btn-choice-donate" onclick="selectSurplusAction('donate')" class="p-3 rounded-xl border-2 border-slate-300 bg-white hover:bg-rose-50 text-left transition flex items-start gap-3 shadow-xs group">
-                <div class="w-10 h-10 rounded-xl bg-rose-500 text-white flex items-center justify-center text-lg flex-shrink-0 shadow group-hover:scale-110 transition">
-                  <i class="fa-solid fa-hand-holding-heart"></i>
-                </div>
-                <div class="flex-1">
-                  <div class="flex items-center justify-between">
-                    <span class="font-black text-sm text-slate-800">💝 選擇「捐贈」</span>
-                    <span id="badge-choice-donate" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-500">點擊決定</span>
-                  </div>
-                  <p class="text-[11px] text-slate-600 mt-0.5 leading-snug">將省下的結餘捐贈給公平貿易小農與地球森林保育公益箱，讓善意循環！</p>
-                </div>
-              </button>
-            </div>
-
-            <!-- 尚未決定時的引導提示 -->
-            <div id="chance-undecided-hint" class="p-2.5 rounded-xl border border-dashed border-amber-500 bg-amber-50/70 text-center text-xs font-bold text-amber-900">
-              👆 請點擊上方【🏦 選擇「存款」】或【💝 選擇「捐贈」】做出決定，即可翻開你的專屬【🎲 機會】正向回饋鼓勵卡！
-            </div>
-            <!-- 決定後翻開的【機會】正向回饋鼓勵卡 -->
-            <div id="chance-feedback-card" class="hidden mt-2 p-3.5 rounded-xl border-2 border-amber-400 bg-gradient-to-r from-amber-100/90 via-yellow-50 to-amber-100/90 shadow-md relative overflow-hidden">
-              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-amber-300/80 pb-2 mb-2">
-                <div class="flex items-center gap-2">
-                  <span class="bg-amber-500 text-white font-black text-xs px-2.5 py-0.5 rounded-lg shadow-xs flex items-center gap-1">
-                    <i class="fa-solid fa-clover"></i> 機會 CHANCE
-                  </span>
-                  <span id="chance-card-title" class="font-black text-sm text-amber-950">【機會卡：正向回饋鼓勵】</span>
-                </div>
-                <button type="button" onclick="drawAnotherChanceCard()" class="text-[11px] bg-white hover:bg-amber-200 text-amber-900 border border-amber-400 font-bold px-2.5 py-0.5 rounded-full transition flex items-center gap-1 shadow-xs">
-                  <i class="fa-solid fa-dice"></i> 再抽一張機會回饋
-                </button>
-              </div>
-              <p id="chance-card-message" class="text-xs text-slate-800 font-bold leading-relaxed"></p>
-            </div>
-          </div>
-
-          <!-- 若剛好花光 $600 元 (結餘 $0) 時的溫馨提醒 -->
-          <div id="surplus-zero-money" class="hidden flex items-center justify-between gap-3 text-slate-600">
-            <div class="flex items-center gap-2.5">
-              <div class="w-9 h-9 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-base flex-shrink-0">
-                <i class="fa-solid fa-coins"></i>
-              </div>
-              <div>
-                <p class="font-black text-xs text-slate-800">目前預算剛好花完（結餘 $0 元）</p>
-                <p class="text-[11px] text-slate-500">💡 小祕訣：若從提籃中少買一項非必要的「想要」，省下一點結餘，就能在此選擇「🏦 存款」或「💝 捐贈」並抽取專屬【機會】正向回饋鼓勵卡喔！</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- 反思提問 -->
         <div class="space-y-4 bg-amber-50/80 p-4 rounded-xl border-2 border-amber-300">
           <div class="flex items-center justify-between">
@@ -612,6 +535,83 @@
               <button type="button" onclick="appendReflection('reflect-q2', '我願意自備保溫水壺與可循環購物袋，並主動向家人推薦有環保標章與FSC認證的用品，因為每一次消費都是在為我們想要的地球投票！')" class="text-[10px] bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5 rounded-full font-bold transition">+ 範例：選用可循環商品並帶動家人認明標章</button>
             </div>
             <textarea id="reflect-q2" rows="2" class="w-full p-2.5 border border-amber-300 rounded-lg text-xs bg-white" placeholder="請點選上方範例修改，或寫下你的改變承諾..."></textarea>
+          </div>
+        </div>
+
+        <!-- 結餘金運用選擇（「存款」或「捐贈」）與【機會】正向回饋鼓勵機制 (移至綠色理財反思下方，採用 3D 立體大字按鈕) -->
+        <div id="surplus-decision-box" class="p-4 rounded-2xl border-2 border-emerald-500 bg-gradient-to-br from-emerald-50 via-teal-50 to-amber-50 space-y-3.5 shadow-md">
+          <!-- 有結餘時顯示的選擇介面 -->
+          <div id="surplus-has-money" class="space-y-3.5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <h4 class="font-black text-sm text-emerald-950 flex items-center gap-1.5">
+                <i class="fa-solid fa-piggy-bank text-emerald-600 text-base"></i>
+                🌟 小資結餘規劃局：你精打細算省下了 <span id="surplus-modal-amount" class="text-base text-rose-600 font-black underline px-1">$0 元</span>！你想如何運用？
+              </h4>
+              <span class="text-[11px] bg-amber-300 text-slate-900 font-black px-2.5 py-0.5 rounded-full shadow-xs animate-pulse">
+                🎲 點擊下方立體按鈕立即翻開【機會】正向回饋卡！
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1 pb-1">
+              <button type="button" id="btn-choice-save" onclick="selectSurplusAction('save')" class="tab-3d p-4 rounded-2xl border-b-4 border-blue-950 bg-gradient-to-b from-blue-500 to-blue-700 text-white text-left flex items-center gap-3.5 group">
+                <div class="w-12 h-12 rounded-2xl bg-white/20 border border-white/40 text-amber-300 flex items-center justify-center text-2xl flex-shrink-0 shadow-inner group-hover:scale-110 transition">
+                  <i class="fa-solid fa-vault"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="font-black text-lg sm:text-xl tracking-wide text-white drop-shadow-sm">🏦 選擇「存款」</span>
+                    <span id="badge-choice-save" class="text-[11px] font-black px-2.5 py-0.5 rounded-full bg-amber-300 text-slate-950 shadow-xs flex-shrink-0">點擊決定</span>
+                  </div>
+                  <p class="text-xs text-blue-100 font-bold mt-1 leading-snug">存入個人儲蓄帳戶，實踐延遲享樂、累積未來夢想基金！</p>
+                </div>
+              </button>
+
+              <button type="button" id="btn-choice-donate" onclick="selectSurplusAction('donate')" class="tab-3d p-4 rounded-2xl border-b-4 border-rose-950 bg-gradient-to-b from-rose-500 to-rose-700 text-white text-left flex items-center gap-3.5 group">
+                <div class="w-12 h-12 rounded-2xl bg-white/20 border border-white/40 text-amber-200 flex items-center justify-center text-2xl flex-shrink-0 shadow-inner group-hover:scale-110 transition">
+                  <i class="fa-solid fa-hand-holding-heart"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="font-black text-lg sm:text-xl tracking-wide text-white drop-shadow-sm">💝 選擇「捐贈」</span>
+                    <span id="badge-choice-donate" class="text-[11px] font-black px-2.5 py-0.5 rounded-full bg-amber-300 text-slate-950 shadow-xs flex-shrink-0">點擊決定</span>
+                  </div>
+                  <p class="text-xs text-rose-100 font-bold mt-1 leading-snug">捐贈給公平貿易小農與地球森林保育公益箱，讓善意循環！</p>
+                </div>
+              </button>
+            </div>
+
+            <!-- 尚未決定時的引導提示 -->
+            <div id="chance-undecided-hint" class="p-2.5 rounded-xl border border-dashed border-amber-500 bg-amber-50/70 text-center text-xs font-bold text-amber-900">
+              👆 請點擊上方立體按鈕【🏦 選擇「存款」】或【💝 選擇「捐贈」】做出決定，即可翻開你的專屬【🎲 機會】正向回饋鼓勵卡！
+            </div>
+            <!-- 決定後翻開的【機會】正向回饋鼓勵卡 -->
+            <div id="chance-feedback-card" class="hidden mt-2 p-3.5 rounded-xl border-2 border-amber-400 bg-gradient-to-r from-amber-100/90 via-yellow-50 to-amber-100/90 shadow-md relative overflow-hidden">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-amber-300/80 pb-2 mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="bg-amber-500 text-white font-black text-xs px-2.5 py-0.5 rounded-lg shadow-xs flex items-center gap-1">
+                    <i class="fa-solid fa-clover"></i> 機會 CHANCE
+                  </span>
+                  <span id="chance-card-title" class="font-black text-sm text-amber-950">【機會卡：正向回饋鼓勵】</span>
+                </div>
+                <button type="button" onclick="drawAnotherChanceCard()" class="text-[11px] bg-white hover:bg-amber-200 text-amber-900 border border-amber-400 font-bold px-2.5 py-0.5 rounded-full transition flex items-center gap-1 shadow-xs">
+                  <i class="fa-solid fa-dice"></i> 再抽一張機會回饋
+                </button>
+              </div>
+              <p id="chance-card-message" class="text-xs text-slate-800 font-bold leading-relaxed"></p>
+            </div>
+          </div>
+
+          <!-- 若剛好花光 $600 元 (結餘 $0) 時的溫馨提醒 -->
+          <div id="surplus-zero-money" class="hidden flex items-center justify-between gap-3 text-slate-600">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-base flex-shrink-0">
+                <i class="fa-solid fa-coins"></i>
+              </div>
+              <div>
+                <p class="font-black text-xs text-slate-800">目前預算剛好花完（結餘 $0 元）</p>
+                <p class="text-[11px] text-slate-500">💡 小祕訣：若從提籃中少買一項非必要的「想要」，省下一點結餘，就能在此選擇「🏦 存款」或「💝 捐贈」並抽取專屬【機會】正向回饋鼓勵卡喔！</p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -678,16 +678,16 @@
     </div>
 
     <div style="margin-bottom: 10px; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 10px; background: #fffbeb;">
-      <h3 style="font-weight: 800; font-size: 12px; color: #78350f; margin: 0 0 5px 0;">二、結餘金運用決定、正向回饋【機會】與綠色理財反思</h3>
-      <div id="pdf-chance-row" style="margin-bottom: 6px; padding: 5px 8px; background: #ecfdf5; border: 1px solid #6ee7b7; border-radius: 4px; font-size: 10px; color: #065f46; line-height: 1.35;"></div>
+      <h3 style="font-weight: 800; font-size: 12px; color: #78350f; margin: 0 0 5px 0;">二、我的綠色理財反思、消費改變動機與結餘【機會】回饋</h3>
       <div style="margin-bottom: 6px;">
         <p style="font-weight: 700; font-size: 10.5px; color: #1e293b; margin: 0 0 3px 0;">1. 在 600 元預算限制下，我如何在「價格便宜/動漫誘惑」與「地球永續責任」之間取得平衡？我克制了哪一項「想要」？</p>
         <div id="pdf-reflect-q1" style="font-size: 10.5px; color: #1e293b; background: #ffffff; padding: 5px 8px; border: 1px solid #cbd5e1; border-radius: 4px; min-height: 26px; line-height: 1.4; white-space: pre-wrap;"></div>
       </div>
-      <div>
+      <div style="margin-bottom: 6px;">
         <p style="font-weight: 700; font-size: 10.5px; color: #1e293b; margin: 0 0 3px 0;">2. 我願意在日常改變的一項消費習慣與動機：</p>
         <div id="pdf-reflect-q2" style="font-size: 10.5px; color: #1e293b; background: #ffffff; padding: 5px 8px; border: 1px solid #cbd5e1; border-radius: 4px; min-height: 26px; line-height: 1.4; white-space: pre-wrap;"></div>
       </div>
+      <div id="pdf-chance-row" style="padding: 5px 8px; background: #ecfdf5; border: 1px solid #6ee7b7; border-radius: 4px; font-size: 10px; color: #065f46; line-height: 1.35;"></div>
     </div>
 
     <div style="margin-bottom: 10px;">
@@ -1085,12 +1085,12 @@
         const cardBox = document.getElementById('chance-feedback-card');
 
         if (!surplusAction) {
-          btnSave.className = 'p-3 rounded-xl border-2 border-blue-400 bg-white hover:bg-blue-50 text-left transition flex items-start gap-3 shadow-sm';
-          badgeSave.className = 'text-[10px] font-black px-2 py-0.5 rounded-full bg-blue-100 text-blue-800';
+          btnSave.className = 'tab-3d p-4 rounded-2xl border-b-4 border-blue-950 bg-gradient-to-b from-blue-500 to-blue-700 text-white text-left flex items-center gap-3.5 group';
+          badgeSave.className = 'text-[11px] font-black px-2.5 py-0.5 rounded-full bg-amber-300 text-slate-950 shadow-xs flex-shrink-0';
           badgeSave.innerText = '點擊決定';
 
-          btnDonate.className = 'p-3 rounded-xl border-2 border-rose-400 bg-white hover:bg-rose-50 text-left transition flex items-start gap-3 shadow-sm';
-          badgeDonate.className = 'text-[10px] font-black px-2 py-0.5 rounded-full bg-rose-100 text-rose-800';
+          btnDonate.className = 'tab-3d p-4 rounded-2xl border-b-4 border-rose-950 bg-gradient-to-b from-rose-500 to-rose-700 text-white text-left flex items-center gap-3.5 group';
+          badgeDonate.className = 'text-[11px] font-black px-2.5 py-0.5 rounded-full bg-amber-300 text-slate-950 shadow-xs flex-shrink-0';
           badgeDonate.innerText = '點擊決定';
 
           if (hintBox) hintBox.classList.remove('hidden');
@@ -1098,20 +1098,20 @@
         } else {
           if (hintBox) hintBox.classList.add('hidden');
           if (surplusAction === 'save') {
-            btnSave.className = 'p-3 rounded-xl border-2 border-blue-600 bg-blue-50/90 text-left transition flex items-start gap-3 shadow-md ring-2 ring-blue-300';
-            badgeSave.className = 'text-[10px] font-black px-2 py-0.5 rounded-full bg-blue-600 text-white';
+            btnSave.className = 'tab-3d active p-4 rounded-2xl border-b-4 border-blue-950 bg-gradient-to-b from-blue-600 to-blue-800 text-white text-left flex items-center gap-3.5 group';
+            badgeSave.className = 'text-[11px] font-black px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 shadow-sm flex-shrink-0';
             badgeSave.innerText = '✓ 已決定：存款';
 
-            btnDonate.className = 'p-3 rounded-xl border-2 border-slate-300 bg-white hover:bg-rose-50 text-left transition flex items-start gap-3 shadow-xs opacity-80 hover:opacity-100';
-            badgeDonate.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-500';
+            btnDonate.className = 'tab-3d p-4 rounded-2xl border-b-4 border-rose-950 bg-gradient-to-b from-rose-500 to-rose-700 text-white text-left flex items-center gap-3.5 group opacity-75 hover:opacity-100';
+            badgeDonate.className = 'text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-white/25 text-white flex-shrink-0';
             badgeDonate.innerText = '點擊改為捐贈';
           } else {
-            btnDonate.className = 'p-3 rounded-xl border-2 border-rose-500 bg-rose-50/90 text-left transition flex items-start gap-3 shadow-md ring-2 ring-rose-300';
-            badgeDonate.className = 'text-[10px] font-black px-2 py-0.5 rounded-full bg-rose-600 text-white';
+            btnDonate.className = 'tab-3d active p-4 rounded-2xl border-b-4 border-rose-950 bg-gradient-to-b from-rose-600 to-rose-800 text-white text-left flex items-center gap-3.5 group';
+            badgeDonate.className = 'text-[11px] font-black px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 shadow-sm flex-shrink-0';
             badgeDonate.innerText = '✓ 已決定：捐贈';
 
-            btnSave.className = 'p-3 rounded-xl border-2 border-slate-300 bg-white hover:bg-blue-50 text-left transition flex items-start gap-3 shadow-xs opacity-80 hover:opacity-100';
-            badgeSave.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-500';
+            btnSave.className = 'tab-3d p-4 rounded-2xl border-b-4 border-blue-950 bg-gradient-to-b from-blue-500 to-blue-700 text-white text-left flex items-center gap-3.5 group opacity-75 hover:opacity-100';
+            badgeSave.className = 'text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-white/25 text-white flex-shrink-0';
             badgeSave.innerText = '點擊改為存款';
           }
 
