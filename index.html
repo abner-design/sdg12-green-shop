@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>龍埔綠活便利店：600元打造「綠色生活百寶袋」3D互動超商</title>
+  <title>綠活超商：小資地球公民 600 元打造「綠色生活百寶袋」｜平台製作者:蕭任熙</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
@@ -118,11 +118,11 @@
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="bg-amber-400 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-wider">SDG 12 責任消費實境超商</span>
+            <span class="bg-amber-400 text-slate-950 text-[11px] font-black px-2.5 py-0.5 rounded tracking-wide shadow-xs">平台製作者:蕭任熙</span>
             <span class="text-xs text-emerald-300 font-bold"><i class="fa-solid fa-hand-pointer"></i> 點擊架上商品或標章皆可彈出詳細說明！</span>
           </div>
           <h1 class="text-lg md:text-xl font-black tracking-tight text-white">
-            龍埔綠活超商：小資地球公民 600 元打造「綠色生活百寶袋」
+            綠活超商：小資地球公民 600 元打造「綠色生活百寶袋」
           </h1>
         </div>
       </div>
@@ -140,7 +140,7 @@
           <span class="text-slate-300">號</span>
         </div>
         <div class="flex items-center gap-1">
-          <input type="text" id="student-name" class="w-20 px-1.5 py-0.5 bg-slate-800 border border-slate-600 rounded text-amber-300 font-bold" value="龍埔小資客">
+          <input type="text" id="student-name" class="w-20 px-1.5 py-0.5 bg-slate-800 border border-slate-600 rounded text-amber-300 font-bold" value="地球小資客">
         </div>
         <button onclick="toggleAudio()" id="btn-sound" class="ml-1 px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded text-slate-300 text-xs" title="切換超商音效">
           <i class="fa-solid fa-volume-high text-amber-400"></i>
@@ -644,8 +644,8 @@
   <div id="printable-report" class="hidden bg-white text-slate-900 font-sans" style="width: 780px; margin: 0 auto; padding: 18px 24px; box-sizing: border-box; background: #ffffff;">
     <div style="text-align: center; border-bottom: 2px solid #1e293b; padding-bottom: 8px; margin-bottom: 10px;">
       <div style="display: inline-block; background: #d97706; color: #ffffff; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 4px; margin-bottom: 3px;">SDG 12 責任消費及生產</div>
-      <h1 style="font-size: 18px; font-weight: 900; color: #0f172a; margin: 0;">新北市龍埔國小 115 學年度校訂國際教育課程</h1>
-      <h2 style="font-size: 13px; font-weight: 700; color: #334155; margin: 3px 0 0 0;">【附件一】小資地球公民：600元預算打造「綠色生活百寶袋」採購計畫書與理財反思單</h2>
+      <h1 style="font-size: 18px; font-weight: 900; color: #0f172a; margin: 0;">小資地球公民：600元預算打造「綠色生活百寶袋」</h1>
+      <h2 style="font-size: 13px; font-weight: 700; color: #334155; margin: 3px 0 0 0;">綠色採購計畫書與理財反思成果單 ｜ 平台製作者:蕭任熙</h2>
       <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: #334155; margin-top: 8px; padding: 0 8px;">
         <span>六年 <b id="pdf-class" style="text-decoration: underline;"></b> 班</span>
         <span>座號：<b id="pdf-seat" style="text-decoration: underline;"></b> 號</span>
@@ -712,8 +712,8 @@
 
   <footer class="bg-slate-900 text-slate-400 py-3.5 text-center text-xs border-t-2 border-amber-400 mt-auto">
     <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-between items-center gap-2">
-      <p>新北市三峽區龍埔國民小學 115 學年度校訂國際教育課程 ｜ 主題三：SDG 12 責任消費及生產</p>
-      <p class="text-slate-500">3D 擬真無紙化數位超商 ｜ 設計團隊：蕭任熙 老師 與 國際教育教學團隊</p>
+      <p>綠活超商：小資地球公民 600 元打造「綠色生活百寶袋」3D 線上互動採購平台</p>
+      <p class="text-amber-400 font-bold">平台製作者:蕭任熙</p>
     </div>
   </footer>
 
@@ -1076,7 +1076,7 @@
         },
         {
           title: '【機會卡：地球與荷包雙贏獎】',
-          msg: '🌱 太棒了！少買一件非必要的「想要」，地球就少一件垃圾，你的荷包也多存了 ${amount} 元！你是懂得為自己與地球負責的龍埔小資客！'
+          msg: '🌱 太棒了！少買一件非必要的「想要」，地球就少一件垃圾，你的荷包也多存了 ${amount} 元！你是懂得為自己與地球負責的地球小資客！'
         },
         {
           title: '【機會卡：延遲享樂超能力】',
@@ -1283,7 +1283,7 @@
           const parsed = JSON.parse(sInfo);
           if (parsed.c) document.getElementById('student-class').value = parsed.c;
           if (parsed.s) document.getElementById('student-seat').value = parsed.s;
-          if (parsed.n) document.getElementById('student-name').value = parsed.n;
+          if (parsed.n) document.getElementById('student-name').value = parsed.n.replace('\u9f8d\u57d4', '地球');
           if (parsed.q1 && document.getElementById('reflect-q1')) document.getElementById('reflect-q1').value = parsed.q1;
           if (parsed.q2 && document.getElementById('reflect-q2')) document.getElementById('reflect-q2').value = parsed.q2;
           if (parsed.sa) surplusAction = parsed.sa;
@@ -2061,7 +2061,7 @@ function appendReflection(fieldId, text) {
         const imgData = canvas.toDataURL('image/jpeg', 0.96);
 
         pdf.addImage(imgData, 'JPEG', offsetX, offsetY, imgW, imgH);
-        pdf.save(`龍埔國小_六年級_${sClass}班_${sSeat}號_${sName}_綠色採購計畫書.pdf`);
+        pdf.save(`六年級_${sClass}班_${sSeat}號_${sName}_綠色採購計畫書.pdf`);
 
         btn.innerHTML = `<i class="fa-solid fa-file-pdf text-amber-300"></i> 結帳並下載 PDF 成果單`;
         btn.disabled = false;
