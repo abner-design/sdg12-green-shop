@@ -9,6 +9,8 @@
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <!-- html2pdf.js for Client-side PDF Generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -194,9 +196,6 @@
             <i class="fa-solid fa-signs-post text-amber-500 text-sm"></i>
             請選擇要逛的超商貨架分區（點擊架上商品即可拿起查看）：
           </span>
-          <button onclick="openCustomItemModal()" class="text-xs font-black text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-2.5 py-1 rounded-lg border border-indigo-300 flex items-center gap-1 transition shadow-xs">
-            <i class="fa-solid fa-plus-circle"></i> 自訂新增超市商品
-          </button>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1" id="category-tabs">
@@ -446,64 +445,6 @@
     </div>
   </div>
 
-  <!-- 彈窗 3：自訂線上超市商品 -->
-  <div id="modal-custom-item" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-5 space-y-4 border-t-4 border-indigo-600">
-      <div class="flex justify-between items-center border-b pb-2">
-        <h3 class="font-black text-sm text-slate-800 flex items-center gap-2">
-          <i class="fa-solid fa-barcode text-indigo-600"></i>
-          自訂新增超市查價商品 (全聯 / 家樂福)
-        </h3>
-        <button onclick="closeCustomItemModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
-      </div>
-      <div class="space-y-3 text-xs">
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">擺放貨架分區：</label>
-          <select id="custom-cat" class="w-full p-2 border border-slate-300 rounded-lg font-medium">
-            <option value="stationery">1. 文具與動漫聯名區</option>
-            <option value="cleaning">2. 洗沐與個人清潔區</option>
-            <option value="food">3. 點心與食玩補給區</option>
-            <option value="life">4. 生活與扭蛋卡牌區</option>
-          </select>
-        </div>
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">商品名稱：</label>
-          <input type="text" id="custom-name" placeholder="例如：春風環保抽取式衛生紙" class="w-full p-2 border border-slate-300 rounded-lg">
-        </div>
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">單價 (元)：</label>
-            <input type="number" id="custom-price" placeholder="例如：85" min="1" class="w-full p-2 border border-slate-300 rounded-lg">
-          </div>
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">包裝規格：</label>
-            <input type="text" id="custom-spec" placeholder="例如：100抽x8包" class="w-full p-2 border border-slate-300 rounded-lg">
-          </div>
-        </div>
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">具備永續認證標章：</label>
-          <select id="custom-cert" class="w-full p-2 border border-slate-300 rounded-lg font-medium">
-            <option value="無特殊標章">無特殊標章（一般商品）</option>
-            <option value="臺灣環保標章">臺灣環保標章 (Green Mark)</option>
-            <option value="國際公平貿易標章">國際公平貿易標章 (Fairtrade)</option>
-            <option value="FSC 永續森林認證">FSC 永續森林認證</option>
-            <option value="碳足跡減量標籤">碳足跡減量標籤 (Carbon Footprint)</option>
-            <option value="有機農產品驗證">有機農產品驗證 (Organic)</option>
-            <option value="可循環/減塑惜食">可循環商品 / 減塑惜食包裝</option>
-          </select>
-        </div>
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">商品特色與理由：</label>
-          <input type="text" id="custom-desc" placeholder="例如：100%再生紙漿，減少砍伐森林" class="w-full p-2 border border-slate-300 rounded-lg">
-        </div>
-      </div>
-      <div class="flex justify-end gap-2 pt-2 border-t">
-        <button onclick="closeCustomItemModal()" class="px-3 py-1.5 text-xs text-slate-500 hover:bg-slate-100 rounded-lg">取消</button>
-        <button onclick="addCustomProduct()" class="px-4 py-1.5 text-xs bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-lg shadow">上架至3D貨架並放入提籃</button>
-      </div>
-    </div>
-  </div>
-
   <!-- 彈窗 4：收銀台結帳、反思與下載 PDF -->
   <div id="modal-checkout" class="fixed inset-0 bg-slate-900/75 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[92vh] flex flex-col overflow-hidden border-t-8 border-emerald-600">
@@ -587,8 +528,7 @@
 
           <div>
             <label class="block font-bold text-slate-800 mb-1">
-              2. 【我的消費改變動機宣言（結合 DQ 可可農報導）】：
-              <span class="font-normal text-slate-600 block mt-0.5">深入了解西非可可農「有了認證卻因買氣不足被迫賤賣」的困境後，我願意在日常改變的一項習慣與內在動機是？</span>
+              2. 我願意在日常改變的一項消費習慣與動機：
             </label>
             <div class="flex flex-wrap gap-1 mb-1.5">
               <button type="button" onclick="appendReflection('reflect-q2', '我願意少抽一次百元扭蛋、少喝一杯手搖飲，改買有「國際公平貿易標章」的巧克力；因為我想保障可可農合理收入，讓遠方非洲的孩子也能安心上學！')" class="text-[10px] bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5 rounded-full font-bold transition">+ 範例：少抽扭蛋支持公平貿易可可農</button>
@@ -623,69 +563,70 @@
   </div>
 
   <!-- 隱藏的 PDF 專用列印模板 -->
-  <div id="printable-report" class="hidden p-8 max-w-[800px] mx-auto bg-white text-slate-900 font-sans text-xs">
-    <div class="text-center border-b-2 border-slate-800 pb-3 mb-4">
-      <div class="inline-block bg-amber-600 text-white text-[10px] font-bold px-2 py-0.5 rounded mb-1">SDG 12 責任消費及生產</div>
-      <h1 class="text-xl font-bold tracking-tight text-slate-900">新北市龍埔國小 115 學年度校訂國際教育課程</h1>
-      <h2 class="text-sm font-semibold text-slate-700 mt-1">【附件一】小資地球公民：600元預算打造「綠色生活百寶袋」採購計畫書與理財反思單</h2>
-      <div class="flex justify-between items-center text-xs text-slate-600 mt-3 px-2">
-        <span>六年 <b id="pdf-class" class="underline"></b> 班</span>
-        <span>座號：<b id="pdf-seat" class="underline"></b> 號</span>
-        <span>學生姓名：<b id="pdf-name" class="underline"></b></span>
+  <!-- 隱藏的 PDF 專用列印模板 (單頁 A4 完整呈現：採購明細 + 反思內容 + 自我檢核表) -->
+  <div id="printable-report" class="hidden bg-white text-slate-900 font-sans" style="width: 780px; margin: 0 auto; padding: 18px 24px; box-sizing: border-box; background: #ffffff;">
+    <div style="text-align: center; border-bottom: 2px solid #1e293b; padding-bottom: 8px; margin-bottom: 10px;">
+      <div style="display: inline-block; background: #d97706; color: #ffffff; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 4px; margin-bottom: 3px;">SDG 12 責任消費及生產</div>
+      <h1 style="font-size: 18px; font-weight: 900; color: #0f172a; margin: 0;">新北市龍埔國小 115 學年度校訂國際教育課程</h1>
+      <h2 style="font-size: 13px; font-weight: 700; color: #334155; margin: 3px 0 0 0;">【附件一】小資地球公民：600元預算打造「綠色生活百寶袋」採購計畫書與理財反思單</h2>
+      <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: #334155; margin-top: 8px; padding: 0 8px;">
+        <span>六年 <b id="pdf-class" style="text-decoration: underline;"></b> 班</span>
+        <span>座號：<b id="pdf-seat" style="text-decoration: underline;"></b> 號</span>
+        <span>學生姓名：<b id="pdf-name" style="text-decoration: underline;"></b></span>
         <span>產出日期：<b id="pdf-date"></b></span>
       </div>
     </div>
 
-    <div class="grid grid-cols-4 gap-2 mb-4 p-2.5 bg-slate-50 border border-slate-300 rounded text-center">
-      <div><span class="block text-[10px] text-slate-500">任務預算上限</span><span class="font-bold text-xs">$600 元</span></div>
-      <div><span class="block text-[10px] text-slate-500">實際採購總額</span><span id="pdf-total-spent" class="font-bold text-xs text-blue-700">$0 元</span></div>
-      <div><span class="block text-[10px] text-slate-500">結餘存入儲蓄</span><span id="pdf-remaining" class="font-bold text-xs text-emerald-700">$0 元</span></div>
-      <div><span class="block text-[10px] text-slate-500">永續認證標章數</span><span id="pdf-cert-count" class="font-bold text-xs text-amber-700">0 項</span></div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 10px; padding: 6px 10px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center;">
+      <div><span style="display: block; font-size: 10px; color: #64748b;">任務預算上限</span><span style="font-weight: 800; font-size: 12px; color: #0f172a;">$600 元</span></div>
+      <div><span style="display: block; font-size: 10px; color: #64748b;">實際採購總額</span><span id="pdf-total-spent" style="font-weight: 800; font-size: 12px; color: #1d4ed8;">$0 元</span></div>
+      <div><span style="display: block; font-size: 10px; color: #64748b;">結餘存入儲蓄</span><span id="pdf-remaining" style="font-weight: 800; font-size: 12px; color: #047857;">$0 元</span></div>
+      <div><span style="display: block; font-size: 10px; color: #64748b;">永續認證標章數</span><span id="pdf-cert-count" style="font-weight: 800; font-size: 12px; color: #b45309;">0 項</span></div>
     </div>
 
-    <div class="mb-4">
-      <h3 class="font-bold text-xs mb-1.5 text-slate-800">一、綠色採購清單明細（四大類別）</h3>
-      <table class="w-full border-collapse border border-slate-400 text-[11px]">
+    <div style="margin-bottom: 10px;">
+      <h3 style="font-weight: 800; font-size: 12px; margin: 0 0 5px 0; color: #0f172a;">一、綠色採購清單明細（四大類別）</h3>
+      <table style="width: 100%; border-collapse: collapse; border: 1px solid #64748b; font-size: 10.5px;">
         <thead>
-          <tr class="bg-slate-200 text-slate-800">
-            <th class="border border-slate-400 p-1.5 w-1/5">採購品項類別</th>
-            <th class="border border-slate-400 p-1.5 w-1/4">選購商品名稱與規格</th>
-            <th class="border border-slate-400 p-1.5 w-14 text-center">單價</th>
-            <th class="border border-slate-400 p-1.5 w-16 text-center">需要/想要</th>
-            <th class="border border-slate-400 p-1.5">永續認證標章與綠色採購理由</th>
+          <tr style="background: #e2e8f0; color: #0f172a;">
+            <th style="border: 1px solid #64748b; padding: 4px 6px; width: 16%; text-align: left;">採購品項類別</th>
+            <th style="border: 1px solid #64748b; padding: 4px 6px; width: 26%; text-align: left;">選購商品名稱與規格</th>
+            <th style="border: 1px solid #64748b; padding: 4px 6px; width: 9%; text-align: center;">單價</th>
+            <th style="border: 1px solid #64748b; padding: 4px 6px; width: 15%; text-align: center;">需要 / 想要</th>
+            <th style="border: 1px solid #64748b; padding: 4px 6px; width: 34%; text-align: left;">永續認證標章與綠色採購理由</th>
           </tr>
         </thead>
         <tbody id="pdf-table-body"></tbody>
       </table>
     </div>
 
-    <div class="mb-4 border border-slate-300 rounded p-3 bg-amber-50/40 space-y-2">
-      <h3 class="font-bold text-xs text-amber-900">二、我的綠色理財反思與消費改變動機</h3>
-      <div>
-        <p class="font-bold text-[11px] text-slate-800">1. 在 600 元預算限制下，我如何在「價格便宜/動漫誘惑」與「地球永續責任」之間取得平衡？我克制了哪一項「想要」？</p>
-        <p id="pdf-reflect-q1" class="text-[11px] text-slate-700 mt-0.5 bg-white p-2 border border-slate-200 rounded min-h-[38px] leading-relaxed"></p>
+    <div style="margin-bottom: 10px; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 10px; background: #fffbeb;">
+      <h3 style="font-weight: 800; font-size: 12px; color: #78350f; margin: 0 0 6px 0;">二、我的綠色理財反思與消費改變動機</h3>
+      <div style="margin-bottom: 6px;">
+        <p style="font-weight: 700; font-size: 10.5px; color: #1e293b; margin: 0 0 3px 0;">1. 在 600 元預算限制下，我如何在「價格便宜/動漫誘惑」與「地球永續責任」之間取得平衡？我克制了哪一項「想要」？</p>
+        <div id="pdf-reflect-q1" style="font-size: 10.5px; color: #1e293b; background: #ffffff; padding: 5px 8px; border: 1px solid #cbd5e1; border-radius: 4px; min-height: 26px; line-height: 1.4; white-space: pre-wrap;"></div>
       </div>
       <div>
-        <p class="font-bold text-[11px] text-slate-800">2. 【我的消費改變動機宣言（結合 DQ 可可農報導）】：</p>
-        <p id="pdf-reflect-q2" class="text-[11px] text-slate-700 mt-0.5 bg-white p-2 border border-slate-200 rounded min-h-[38px] leading-relaxed"></p>
+        <p style="font-weight: 700; font-size: 10.5px; color: #1e293b; margin: 0 0 3px 0;">2. 我願意在日常改變的一項消費習慣與動機：</p>
+        <div id="pdf-reflect-q2" style="font-size: 10.5px; color: #1e293b; background: #ffffff; padding: 5px 8px; border: 1px solid #cbd5e1; border-radius: 4px; min-height: 26px; line-height: 1.4; white-space: pre-wrap;"></div>
       </div>
     </div>
 
-    <div class="mb-4">
-      <h3 class="font-bold text-xs mb-1.5 text-slate-800">三、【附件二】個人綠色採購與合理理財自我檢核表</h3>
-      <table class="w-full border-collapse border border-slate-400 text-[10px]">
+    <div style="margin-bottom: 10px;">
+      <h3 style="font-weight: 800; font-size: 12px; margin: 0 0 5px 0; color: #0f172a;">三、【附件二】個人綠色採購與合理理財自我檢核表</h3>
+      <table style="width: 100%; border-collapse: collapse; border: 1px solid #64748b; font-size: 10px;">
         <thead>
-          <tr class="bg-slate-200 text-slate-800">
-            <th class="border border-slate-400 p-1 w-28">評核向度</th>
-            <th class="border border-slate-400 p-1">評量指標（4星:極佳 / 3星:良好 / 2星:尚可 / 1星:待努力）</th>
-            <th class="border border-slate-400 p-1 w-16 text-center">自評星等</th>
+          <tr style="background: #e2e8f0; color: #0f172a;">
+            <th style="border: 1px solid #64748b; padding: 4px 6px; width: 24%; text-align: left;">評核向度</th>
+            <th style="border: 1px solid #64748b; padding: 4px 6px; width: 60%; text-align: left;">評量指標（4星:極佳 / 3星:良好 / 2星:尚可 / 1星:待努力）</th>
+            <th style="border: 1px solid #64748b; padding: 4px 6px; width: 16%; text-align: center;">自評星等</th>
           </tr>
         </thead>
         <tbody id="pdf-rubric-body"></tbody>
       </table>
     </div>
 
-    <div class="border-t border-slate-400 pt-3 flex justify-between items-center text-[11px] text-slate-600">
+    <div style="border-top: 1px solid #64748b; padding-top: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #334155;">
       <span>小資地球公民簽署：____________________</span>
       <span>授課教師認證 / 評語：____________________</span>
     </div>
@@ -958,7 +899,7 @@
       { key: 'r2', title: '2. 需要 vs. 想要（理智抉擇）', desc: '能客觀抵擋動漫週邊、扭蛋或促銷誘惑，優先購買真實生活所需。' },
       { key: 'r3', title: '3. 綠色責任（SDG 12 指標）', desc: '選購至少 2 項以上具備永續認證標章之商品，支持環境與小農人權。' },
       { key: 'r4', title: '4. 可循環與減量（延長壽命）', desc: '優先選購「可循環」商品、考量每次使用成本(Cost per Use)或無包裝設計，打破用完即丟。' },
-      { key: 'r5', title: '5. 深度探究與改變動機', desc: '結合 DQ 可可農報導理解終端買氣重要性，寫下真實深刻的改變動機。' }
+      { key: 'r5', title: '5. 消費習慣與改變動機', desc: '能深刻反思日常消費行為，具體提出願意在日常改變的一項消費習慣與內在動機。' }
     ];
 
     let products = [...initialProducts];
@@ -1037,7 +978,13 @@
           if (parsed.q2 && document.getElementById('reflect-q2')) document.getElementById('reflect-q2').value = parsed.q2;
         }
         const sCart = localStorage.getItem('lp_green_3d_cart');
-        if (sCart) cart = JSON.parse(sCart);
+        if (sCart) {
+          const rawCart = JSON.parse(sCart);
+          cart = rawCart.filter(item => item && item.product && products.some(p => p.id === item.product.id)).map(item => ({
+            ...item,
+            product: products.find(p => p.id === item.product.id)
+          }));
+        }
         const sRub = localStorage.getItem('lp_green_3d_rubrics');
         if (sRub) rubricScores = JSON.parse(sRub);
       } catch (e) {}
@@ -1510,65 +1457,7 @@
       }, 2600);
     }
 
-    function openCustomItemModal() {
-      playBeep(600, 0.08);
-      document.getElementById('modal-custom-item').classList.remove('hidden');
-    }
-    function closeCustomItemModal() {
-      document.getElementById('modal-custom-item').classList.add('hidden');
-    }
-    function addCustomProduct() {
-      const cat = document.getElementById('custom-cat').value;
-      const name = document.getElementById('custom-name').value.trim();
-      const price = parseInt(document.getElementById('custom-price').value);
-      const spec = document.getElementById('custom-spec').value.trim() || '市售規格';
-      const cert = document.getElementById('custom-cert').value;
-      const desc = document.getElementById('custom-desc').value.trim() || '學生自訂線上超市查價商品';
-
-      if (!name) return alert('請輸入商品名稱！');
-      if (isNaN(price) || price <= 0) return alert('請輸入正確的單價！');
-
-      const catNames = {
-        stationery: '【文具/學習用品】',
-        cleaning: '【清潔/個人衛生】',
-        food: '【食品/點心補給】',
-        life: '【自由選購生活品】'
-      };
-
-      const isGreen = cert !== '無特殊標章';
-      const newId = 'cust_' + Date.now();
-      productArtMap[newId] = productArtMap['st_01'];
-
-      const newProduct = {
-        id: newId,
-        category: cat,
-        categoryName: catNames[cat],
-        name: name,
-        spec: spec,
-        price: price,
-        cert: cert,
-        isGreen: isGreen,
-        defaultNeed: true,
-        desc: desc,
-        defaultReason: `選購考量：${desc}`,
-        quickTags: [cert, '線上超市比價', '實用必需']
-      };
-
-      products.unshift(newProduct);
-      closeCustomItemModal();
-      cart.push({
-        product: newProduct,
-        isNeed: true,
-        reason: newProduct.defaultReason,
-        selectedTags: [cert]
-      });
-      render3DShelves();
-      renderCart();
-      saveStateToStorage();
-      showFloatingToast(`已將「${name}」擺上 3D 貨架並放入提籃！`, 'success');
-    }
-
-    function appendReflection(fieldId, text) {
+function appendReflection(fieldId, text) {
       const el = document.getElementById(fieldId);
       el.value = text;
       saveStateToStorage();
@@ -1694,7 +1583,7 @@
       document.getElementById('modal-checkout').classList.add('hidden');
     }
 
-    function generateAndDownloadPDF() {
+    async function generateAndDownloadPDF() {
       const totalSpent = cart.reduce((sum, item) => sum + item.product.price, 0);
       if (totalSpent > 600) {
         alert('⚠️ 您的採購總金額超過 600 元上限，無法結帳！請先返回提籃將部分「想要」商品放回貨架。');
@@ -1732,16 +1621,16 @@
         const logoSrc = logoMap[item.product.cert] || logoMap['無特殊標章'];
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td class="border border-slate-400 p-1.5 font-bold">${item.product.categoryName}</td>
-          <td class="border border-slate-400 p-1.5 font-bold">${item.product.name} <span class="text-[9px] font-normal text-slate-500">(${item.product.spec})</span></td>
-          <td class="border border-slate-400 p-1.5 text-center font-bold text-blue-800">$${item.product.price} 元</td>
-          <td class="border border-slate-400 p-1.5 text-center font-bold">
-            ${item.isNeed ? '☑ 需要  □ 想要' : '□ 需要  ☑ 想要'}
+          <td style="border: 1px solid #64748b; padding: 4px 6px; font-weight: 700;">${item.product.categoryName}</td>
+          <td style="border: 1px solid #64748b; padding: 4px 6px; font-weight: 700;">${item.product.name} <span style="font-size: 9px; font-weight: 400; color: #64748b;">(${item.product.spec})</span></td>
+          <td style="border: 1px solid #64748b; padding: 4px 6px; text-align: center; font-weight: 700; color: #1e40af;">$${item.product.price} 元</td>
+          <td style="border: 1px solid #64748b; padding: 4px 6px; text-align: center; font-weight: 700; white-space: nowrap;">
+            ${item.isNeed ? '<span style="color:#047857;">☑ 需要</span> <span style="color:#94a3b8;">□ 想要</span>' : '<span style="color:#94a3b8;">□ 需要</span> <span style="color:#be123c;">☑ 想要</span>'}
           </td>
-          <td class="border border-slate-400 p-1.5">
+          <td style="border: 1px solid #64748b; padding: 4px 6px;">
             <div style="display:flex; align-items:center; gap:6px;">
-              <img src="${logoSrc}" style="width:22px; height:26px; object-fit:contain; flex-shrink:0;">
-              <div>
+              <img src="${logoSrc}" style="width:20px; height:22px; object-fit:contain; flex-shrink:0;">
+              <div style="line-height: 1.3;">
                 <b>標章：</b>${item.product.cert}<br>
                 <b>理由：</b>${item.reason}
               </div>
@@ -1757,47 +1646,100 @@
       const pdfRub = document.getElementById('pdf-rubric-body');
       pdfRub.innerHTML = '';
       rubrics.forEach(r => {
-        const starCount = rubricScores[r.key];
-        const starsStr = '★'.repeat(starCount) + '☆'.repeat(4 - starCount);
+        const starCount = rubricScores[r.key] || 4;
+        const starsStr = '★'.repeat(starCount) + '☆'.repeat(4 - starCount) + ` (${starCount}星)`;
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td class="border border-slate-400 p-1 font-bold">${r.title}</td>
-          <td class="border border-slate-400 p-1 text-slate-700">${r.desc}</td>
-          <td class="border border-slate-400 p-1 text-center font-bold text-amber-700">${starsStr}</td>
+          <td style="border: 1px solid #64748b; padding: 4px 6px; font-weight: 700;">${r.title}</td>
+          <td style="border: 1px solid #64748b; padding: 4px 6px; color: #334155;">${r.desc}</td>
+          <td style="border: 1px solid #64748b; padding: 4px 6px; text-align: center; font-weight: 700; color: #b45309; white-space: nowrap;">${starsStr}</td>
         `;
         pdfRub.appendChild(tr);
       });
-
-      const element = document.getElementById('printable-report');
-      element.classList.remove('hidden');
-
-      const opt = {
-        margin: [8, 8, 8, 8],
-        filename: `龍埔國小_六年級_${sClass}班_${sSeat}號_${sName}_綠色採購計畫書.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
 
       const btn = document.getElementById('btn-download-pdf');
       btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> PDF 產生中...`;
       btn.disabled = true;
 
-      html2pdf().set(opt).from(element).save().then(() => {
+      const element = document.getElementById('printable-report');
+      const savedScrollY = window.scrollY || window.pageYOffset || 0;
+
+      // 暫時隱藏頁面上其他區塊，讓 #printable-report 在 (0,0) 完整展開，徹底避免捲軸偏移與截切問題
+      const otherNodes = Array.from(document.body.children).filter(el => el.id !== 'printable-report');
+      otherNodes.forEach(el => {
+        el.dataset.prevDisplay = el.style.display || '';
+        el.style.display = 'none';
+      });
+
+      element.classList.remove('hidden');
+      element.style.display = 'block';
+      window.scrollTo(0, 0);
+
+      try {
+        await new Promise(resolve => setTimeout(resolve, 120));
+
+        const captureFn = window.html2canvas || (window.html2pdf && window.html2pdf.html2canvas);
+        const canvas = await captureFn(element, {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: '#ffffff',
+          scrollX: 0,
+          scrollY: 0,
+          x: 0,
+          y: 0,
+          width: element.offsetWidth,
+          height: element.scrollHeight,
+          windowWidth: Math.max(element.offsetWidth + 40, 820),
+          windowHeight: element.scrollHeight + 100
+        });
+
+        // 還原畫面與捲動位置
         element.classList.add('hidden');
+        element.style.display = '';
+        otherNodes.forEach(el => {
+          el.style.display = el.dataset.prevDisplay;
+        });
+        window.scrollTo(0, savedScrollY);
+
+        // 縮放至單頁 A4 (210mm x 297mm)，確保 100% 單頁呈現不切頁、不遺漏反思與自評
+        const jsPDFConstructor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+        const pdf = new jsPDFConstructor({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const pageW = 210;
+        const pageH = 297;
+        const margin = 7;
+        const maxW = pageW - margin * 2; // 196mm
+        const maxH = pageH - margin * 2; // 283mm
+
+        let imgW = maxW;
+        let imgH = (canvas.height * imgW) / canvas.width;
+        if (imgH > maxH) {
+          imgH = maxH;
+          imgW = (canvas.width * imgH) / canvas.height;
+        }
+
+        const offsetX = (pageW - imgW) / 2;
+        const offsetY = margin;
+        const imgData = canvas.toDataURL('image/jpeg', 0.96);
+
+        pdf.addImage(imgData, 'JPEG', offsetX, offsetY, imgW, imgH);
+        pdf.save(`龍埔國小_六年級_${sClass}班_${sSeat}號_${sName}_綠色採購計畫書.pdf`);
+
         btn.innerHTML = `<i class="fa-solid fa-file-pdf text-amber-300"></i> 結帳並下載 PDF 成果單`;
         btn.disabled = false;
-        showFloatingToast('PDF 成果單已成功下載！', 'success');
+        showFloatingToast('單頁 A4 PDF 成果單已成功下載！', 'success');
         saveStateToStorage();
-      }).catch(err => {
+      } catch (err) {
         console.error(err);
         element.classList.add('hidden');
+        element.style.display = '';
+        otherNodes.forEach(el => {
+          el.style.display = el.dataset.prevDisplay;
+        });
+        window.scrollTo(0, savedScrollY);
         btn.innerHTML = `<i class="fa-solid fa-file-pdf text-amber-300"></i> 結帳並下載 PDF 成果單`;
         btn.disabled = false;
-        element.classList.remove('hidden');
-        window.print();
-        element.classList.add('hidden');
-      });
+        alert('PDF 產生失敗，請稍後再試：' + err.message);
+      }
     }
   </script>
 </body>
