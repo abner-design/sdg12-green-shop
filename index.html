@@ -112,37 +112,45 @@
   <!-- 超商頂部招牌 -->
   <header class="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 text-white shadow-lg sticky top-0 z-40 border-b-4 border-amber-400">
     <div class="max-w-7xl mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-3">
+      <!-- 左側：主標題與下方提示 -->
       <div class="flex items-center space-x-3">
-        <div class="w-11 h-11 rounded-xl bg-amber-400 text-slate-900 flex items-center justify-center font-black text-2xl shadow-md border-2 border-white">
+        <div class="w-11 h-11 rounded-xl bg-amber-400 text-slate-900 flex items-center justify-center font-black text-2xl shadow-md border-2 border-white flex-shrink-0">
           <i class="fa-solid fa-store text-emerald-900"></i>
         </div>
         <div>
-          <div class="flex items-center gap-2">
-            <span class="bg-amber-400 text-slate-950 text-[11px] font-black px-2.5 py-0.5 rounded tracking-wide shadow-xs">平台製作者:蕭任熙</span>
-            <span class="text-xs text-emerald-300 font-bold"><i class="fa-solid fa-hand-pointer"></i> 點擊架上商品或標章皆可彈出詳細說明！</span>
-          </div>
-          <h1 class="text-lg md:text-xl font-black tracking-tight text-white">
+          <h1 class="text-lg md:text-xl font-black tracking-tight text-white leading-tight">
             綠活超商：小資地球公民 600 元打造「綠色生活百寶袋」
           </h1>
+          <p class="text-xs text-emerald-300 font-bold mt-0.5 flex items-center gap-1">
+            <span>↓點擊架上商品或標章皆可彈出詳細說明！</span>
+          </p>
         </div>
       </div>
 
-      <!-- 學生個人資料列 -->
-      <div class="flex items-center gap-2 bg-slate-900/90 p-1.5 px-3 rounded-xl border border-emerald-500/50 text-xs">
-        <span class="text-amber-400 font-bold"><i class="fa-solid fa-user-check"></i> 採購員：</span>
+      <!-- 中間位置：消費者個人資料列 -->
+      <div class="flex flex-wrap items-center gap-2 bg-slate-900/90 p-1.5 px-3.5 rounded-xl border border-emerald-500/50 text-xs mx-auto shadow-inner">
+        <span class="text-amber-400 font-bold"><i class="fa-solid fa-user-check"></i> 消費者：</span>
         <div class="flex items-center gap-1">
           <span class="text-slate-300">六年</span>
-          <input type="text" id="student-class" class="w-9 px-1 py-0.5 bg-slate-800 border border-slate-600 rounded text-center text-amber-300 font-bold" value="1">
+          <input type="text" id="student-class" class="w-8 px-1 py-0.5 bg-slate-800 border border-slate-600 rounded text-center text-amber-300 font-bold" value="1">
           <span class="text-slate-300">班</span>
         </div>
         <div class="flex items-center gap-1">
-          <input type="text" id="student-seat" class="w-9 px-1 py-0.5 bg-slate-800 border border-slate-600 rounded text-center text-amber-300 font-bold" value="01">
+          <input type="text" id="student-seat" class="w-8 px-1 py-0.5 bg-slate-800 border border-slate-600 rounded text-center text-amber-300 font-bold" value="01">
           <span class="text-slate-300">號</span>
         </div>
         <div class="flex items-center gap-1">
-          <input type="text" id="student-name" class="w-20 px-1.5 py-0.5 bg-slate-800 border border-slate-600 rounded text-amber-300 font-bold" value="地球小資客">
+          <span class="text-slate-300">姓名:</span>
+          <input type="text" id="student-name" class="w-24 px-1.5 py-0.5 bg-slate-800 border border-slate-600 rounded text-amber-300 font-bold" value="地球小資客">
         </div>
-        <button onclick="toggleAudio()" id="btn-sound" class="ml-1 px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded text-slate-300 text-xs" title="切換超商音效">
+      </div>
+
+      <!-- 右上角：平台製作者與音效開關 -->
+      <div class="flex items-center gap-2 self-start sm:self-center ml-auto lg:ml-0">
+        <span class="bg-amber-400 text-slate-950 text-xs font-black px-3 py-1 rounded-lg tracking-wide shadow-sm border border-white/60">
+          平台製作者:蕭任熙
+        </span>
+        <button onclick="toggleAudio()" id="btn-sound" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg text-slate-300 text-xs" title="切換超商音效">
           <i class="fa-solid fa-volume-high text-amber-400"></i>
         </button>
       </div>
